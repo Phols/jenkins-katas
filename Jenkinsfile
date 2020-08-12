@@ -30,6 +30,7 @@ pipeline {
 
           }
           steps {
+            stash(name: 'code', includes: '/.git')
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
             sh 'ls'
