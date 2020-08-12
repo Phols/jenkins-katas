@@ -24,6 +24,7 @@ pipeline {
 
           }
           steps {
+            skipDefaultCheckout true
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
             sh 'ls'
