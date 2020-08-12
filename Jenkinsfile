@@ -52,4 +52,10 @@ pipeline {
     }
 
   }
+  post {
+    always {
+      deleteDir()
+    }
+
+  }
 }
