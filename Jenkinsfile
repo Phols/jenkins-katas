@@ -13,6 +13,7 @@ pipeline {
           agent {
             docker {
               image 'gradle:jdk11'
+              args 'skipDefaultCheckout(true)'
             }
 
           }
