@@ -50,6 +50,19 @@ pipeline {
       }
     }
 
+    stage('Build docker app') {
+      agent any
+      environment {
+        DOCKERCREDS = credentials('docker_login')
+      }
+      steps {
+        unstash 'code'
+        sh 'ci/build-docker.sh'
+        sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin'
+        stash 'code'
+      }
+    }
+
     stage('Push docker app') {
       agent any
       when {
@@ -60,9 +73,9 @@ pipeline {
       }
       steps {
         unstash 'code'
-        sh 'ci/build-docker.sh'
         sh 'echo "$DOCKERCREDS_PSW" | docker login -u "$DOCKERCREDS_USR" --password-stdin'
         sh 'ci/push-docker.sh'
+        stash 'code'
       }
     }
 
