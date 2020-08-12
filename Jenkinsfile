@@ -4,12 +4,12 @@ pipeline {
     stage('Clone down') {
       agent {
         node {
-          label 'host'
+          label 'Host'
         }
 
       }
       steps {
-        stash(name: 'code', excludes: '/.git')
+        stash(name: 'code', excludes: '.git')
       }
     }
 
@@ -30,7 +30,7 @@ pipeline {
 
           }
           steps {
-            stash(name: 'code', includes: '/.git')
+            stash(name: 'code', includes: '.git')
             sh 'ci/build-app.sh'
             archiveArtifacts 'app/build/libs/'
             sh 'ls'
