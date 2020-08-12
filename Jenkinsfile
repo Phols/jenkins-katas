@@ -34,6 +34,18 @@ pipeline {
           }
         }
 
+        stage('Test App') {
+          agent {
+            docker {
+              image 'gradle:jdk11'
+            }
+
+          }
+          steps {
+            unstash 'code'
+          }
+        }
+
       }
     }
 
